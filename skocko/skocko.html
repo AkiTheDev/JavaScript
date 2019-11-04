@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                background-image: url('pozadina.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            input{
+                width:15px;
+                text-align: center;
+                
+            }
+            #resenje{
+            position: relative;
+            margin: 0 auto;
+            top:250px;
+            display:none;
+            }
+            button{
+                position:relative;;
+                top:100px;
+                width:100px;
+                font-size: 24px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                border: none;
+                border-radius: 15px;
+                background-color:red;
+                box-shadow: 0 9px darkred;
+            }
+            button:active{
+                box-shadow: 0 5px darkred;
+                transform: translateY(4px)
+            }
+            #pokusaji{
+                position:relative;
+                background-color:blue;
+                border:3px solid blue;
+                width:106px;
+                height:200px;
+                border-radius:5px;
+            }
+            #pokusaji input{
+                position:absolute;
+                display:block;
+                background-color: lightskyblue;
+                border-radius: 2px;
+            }
+            
+            p{
+                position:relative;
+                left:150px;
+                white-space: nowrap;
+                line-height: 9px;
+                padding-bottom: 7px;
+				color:white;
+            }
+            
+        
+        </style>
+        <script type="text/javascript">
+        
+            function f(){
+				alert("brojevi su od 0 do 5");
+                var brojac=1;
+                for(var i=0;i<6;i++){
+                    for(var j=0;j<4;j++){
+                        var pok=document.createElement("input");
+                        pok.id="br"+brojac;
+                        pok.style.left=(j*20+j*2+10)+"px";
+                        pok.style.top=(i*30+i*2+10)+"px";
+                        pokusaji.appendChild(pok);
+                        brojac++;
+                    }
+                }
+                var x=Math.floor(Math.random() * 6)
+                document.getElementById('r1').value=x;
+                var y=Math.floor(Math.random() * 6)
+                document.getElementById('r2').value=y;
+                var z=Math.floor(Math.random() * 6)
+                document.getElementById('r3').value=z;
+                var p=Math.floor(Math.random() * 6)
+                document.getElementById('r4').value=p;
+            }
+
+
+
+
+
+            var klik = 0;
+
+            $("#proveri").on("click", f2);
+
+            function f2(){
+
+                var tacno=0;
+                var zamalo=0;
+                var pogresno=0;
+                
+                var apok= new Array(4); 
+                var ares= new Array(4); 
+                
+                for(var i=0;i<4;i++)
+                {
+                apok[i]=document.getElementById("br"+(i+1+klik*4)).value;
+                ares[i]=document.getElementById("r"+(i+1)).value;
+                }
+                                                
+                for(var i=0;i<apok.length ;i++)
+                {
+                 
+                    if(apok[i]==ares[i])
+                        {
+                            apok.splice(i,1);
+                            ares.splice(i,1);
+                            tacno++;
+                            i--;                                                        
+                        }                                                             
+                }
+                
+                
+                for(var i=0;i<apok.length ;i++)
+                {
+                 for(var j=0;j<ares.length ;j++)
+                 {
+                    if(apok[i]==ares[j])
+                        {
+                            apok.splice(i,1);
+                            ares.splice(j,1);
+                            zamalo++;
+                            i--;
+                            j--;
+                            break;
+                        }                        
+                    }                        
+                }
+                pogresno=4-tacno-zamalo;
+                
+                if(tacno==4){
+                document.getElementById("o"+(klik+1)).innerHTML="Sve su tacne,bravo!";
+                document.getElementById("resenje").style.display="block";
+                }else{
+                document.getElementById("o"+(klik+1)).innerHTML="Ima "+tacno+" tacnih "+zamalo+" van svog mesta i "+pogresno+" pogresnih";
+                }
+                if(klik==5){
+                    document.getElementById("resenje").style.display="block";
+                }
+                
+                klik++;
+            }
+
+
+
+
+
+
+           /* function f23(){
+                var tacno=0;
+                var zamalo=0;
+                var pogresno=0;
+                
+                var apok= new Array(4); 
+                var ares= new Array(4); 
+                
+                for(var i=0;i<4;i++)
+                {
+                apok[i]=document.getElementById("br"+(i+1)).value;
+                ares[i]=document.getElementById("r"+(i+1)).value;
+                }
+                                                
+                for(var i=0;i<apok.length ;i++)
+                {
+                 
+                    if(apok[i]==ares[i])
+                        {
+                            apok.splice(i,1);
+                            ares.splice(i,1);
+                            tacno++;
+                            i--;                                                        
+                        }                                                             
+                }
+                
+                
+                for(var i=0;i<apok.length ;i++)
+                {
+                 for(var j=0;j<ares.length ;j++)
+                 {
+                    if(apok[i]==ares[j])
+                        {
+                            apok.splice(i,1);
+                            ares.splice(j,1);
+                            zamalo++;
+                            i--;
+                            j--;
+                            break;
+                        }                        
+                    }                        
+                }
+                
+                pogresno=4-tacno-zamalo;
+                
+         
+            alert("Ima "+tacno+" tacnih "+zamalo+" van svog mesta i "+pogresno+" pogresnih");
+
+
+            
+            /*  var j=1;
+                var tacno=0;
+                var zamalo=0;
+                var pogresno=0;
+                        for(var i=1;i<5;i++){
+                        var res=document.getElementById("r"+i).value;
+                        for(j=1;j<5;j++){
+                        var pok=document.getElementById("br"+j).value;
+                        if(pok==res && i==j){
+                            tacno++;
+                            break;
+                        }else if(pok==res && i!=j){
+                            zamalo++;
+                            break;
+                        }else if(pok!=res && i!=j){
+                            pogresno++;
+                        }
+                        }
+    
+                        // var res=document.getElementById("r"+brojac).value;
+                    
+                /*
+                var pok1=document.getElementById('br1').value;
+                var pok2=document.getElementById('br2').value;
+                var pok3=document.getElementById('br3').value;
+                var pok4=document.getElementById('br4').value;
+                var x=document.getElementById('r1').value;
+                var y=document.getElementById('r2').value;
+                var z=document.getElementById('r3').value;
+                var p=document.getElementById('r4').value;
+                var tacno=0;
+                var zamalo=0;
+                var pogresno=0;
+                if (pok1==x){
+                    tacno=tacno+1;
+                } 
+                else if(pok1==y||pok1==z||pok1==p){
+                    zamalo=zamalo+1;
+                }else{
+                    pogresno=pogresno+1;
+
+                }
+                if (pok2==y){
+                    tacno=tacno+1;
+
+                }
+                else if(pok2==x||pok2==z||pok2==p){
+                    zamalo=zamalo+1;
+                    
+                }else{
+                    pogresno=pogresno+1;
+                }
+                if (pok3==z){
+                    tacno=tacno+1;
+                    
+                }
+                else if(pok3==y||pok3==x||pok3==p){
+                    zamalo=zamalo+1;
+                    
+                }else{
+                    pogresno=pogresno+1;
+                }
+                if (pok4==p){
+                    tacno=tacno+1;
+                    
+                }
+                else if(pok4==y||pok4==z||pok4==x){
+                    zamalo=zamalo+1;
+                    
+                }else{
+                    pogresno=pogresno+1;
+                }
+                if(tacno==4){
+                    window.alert("Sve je tacno,bravo :):):):):):):):):):):):):):):):):):):):):):):):):):):):):)")
+                }else{
+                window.alert("Ima "+tacno+" na svom mestu, "+zamalo+" van svog mesta, "+pogresno+" pogresnih")
+                }
+                
+
+                
+            }
+            alert("Ima "+tacno+" tacnih "+zamalo+" van svog mesta i "+pogresno+" pogresnih");
+        }
+            */
+        </script>
+    </head>
+    <body onload="f()">
+        <div id="resenje">
+        <input type="text" id="r1">
+        <input type="text" id="r2">
+        <input type="text" id="r3">
+        <input type="text" id="r4">
+        </div>
+        <div id="pokusaji">
+        <p id="o1"></p>
+        <p id="o2"></p>
+        <p id="o3"></p>
+        <p id="o4"></p>
+        <p id="o5"></p>
+        <p id="o6"></p>
+        </div>
+        <!--
+        <input type="text" id="br1">
+        <input type="text" id="br2">
+        <input type="text" id="br3">
+        <input type="text" id="br4">
+        <br>
+        <input type="text" id="br5">
+        <input type="text" id="br6">
+        <input type="text" id="br7">
+        <input type="text" id="br8">
+        <br>
+        <input type="text" id="br9">
+        <input type="text" id="br10">
+        <input type="text" id="br11">
+        <input type="text" id="br12">
+        <br>
+        <input type="text" id="br13">
+        <input type="text" id="br14">
+        <input type="text" id="br15">
+        <input type="text" id="br16">
+        <br>
+        <input type="text" id="br17">
+        <input type="text" id="br18">
+        <input type="text" id="br19">
+        <input type="text" id="br20">
+        <br>
+        <input type="text" id="br21">
+        <input type="text" id="br22">
+        <input type="text" id="br23">
+        <input type="text" id="br24">
+        -->
+        <button id="proveri" onclick="f2()">Proveri</button>
+        <!--<button onclick="document.getElementById('resenje').scrollIntoView()">Idi do resenja</button>
+        -->
+
+
+        
+
+
+    </body>
+</html>
